@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.containers.CreateAnAccount.header',
-    defaultMessage: 'This is CreateAnAccount container !',
+    defaultMessage: 'Click',
   },
 });

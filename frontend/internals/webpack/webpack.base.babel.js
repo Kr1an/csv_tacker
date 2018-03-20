@@ -93,6 +93,7 @@ module.exports = (options) => ({
     // drop any unreachable code.
     new webpack.DefinePlugin({
       'process.env': {
+        API_BASE: JSON.stringify(process.env.API_BASE),
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),

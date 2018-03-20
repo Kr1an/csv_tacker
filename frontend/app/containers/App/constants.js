@@ -10,3 +10,7 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+
+export const CHECK_IF_AUTHORIZED = 'app/app/CHECK_IF_AUTHORIZED';
+export const CHECK_IF_AUTHORIZED_ERROR = 'app/app/CHECK_IF_AUTHORIZED_ERROR';
+export const CHECK_IF_AUTHORIZED_SUCCESS = 'app/app/CHECK_IF_AUTHORIZED_SUCCESS';

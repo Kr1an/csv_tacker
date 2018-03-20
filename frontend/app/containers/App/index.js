@@ -13,17 +13,32 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { compose } from 'redux';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import CreateAnAccount from 'containers/CreateAnAccount';
+import LogIn from 'containers/LogIn';
+import Success from 'containers/Success';
+import FileSubmitionForm from 'containers/FileSubmitionForm';
 
-export default function App() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
-  );
-}
+import injectSaga from 'utils/injectSaga';
+
+import saga from './saga';
+
+import Wrapper from './Wrapper';
+
+const App = () => (
+  <Wrapper>
+    <Switch>
+      <Route path="/register" component={CreateAnAccount} />
+      <Route path="/login" component={LogIn} />
+      <Route path="/success" component={Success} />
+      <Route path="/submit" component={FileSubmitionForm} />
+    </Switch>
+  </Wrapper>
+);
+
+const withSaga = injectSaga({ key: 'fileSubmitionForm', saga });
+
+export default compose(
+  withSaga,
+)(App);

@@ -1,25 +1,20 @@
 import { createSelector } from 'reselect';
 
-/**
- * Direct selector to the fileSubmitionForm state domain
- */
+
 const selectFileSubmitionFormDomain = (state) => state.get('fileSubmitionForm');
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by FileSubmitionForm
- */
-
-const makeSelectFileSubmitionForm = () => createSelector(
+const makeSelectFileSubmitionMeta = () => createSelector(
   selectFileSubmitionFormDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('meta').toJS(),
 );
 
-export default makeSelectFileSubmitionForm;
+const makeSelectFileSubmitionData = () => createSelector(
+  selectFileSubmitionFormDomain,
+  (substate) => substate.get('data').toJS(),
+);
+
 export {
   selectFileSubmitionFormDomain,
+  makeSelectFileSubmitionData,
+  makeSelectFileSubmitionMeta,
 };

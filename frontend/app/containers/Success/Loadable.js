@@ -1,6 +1,9 @@
 /**
- * Asynchronously loads the component for NotFoundPage
+ *
+ * Asynchronously loads the component for Success
+ *
  */
+
 import Loadable from 'react-loadable';
 
 export default Loadable({
