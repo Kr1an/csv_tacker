@@ -43,10 +43,6 @@ import {
   reset,
 } from './actions';
 
-function Transition(props) {
-  return <Slide direction="down" {...props} />;
-}
-
 function IsJsonString(str) {
   try {
     JSON.parse(str);
@@ -253,6 +249,9 @@ function FileSubmitionForm({
                     <TableCell>{x.address}</TableCell>
                     <TableCell>{x.expense_description}</TableCell>
                     <TableCell>{x.pre_tax_amount}</TableCell>
+                    <TableCell>{x.tax_name}</TableCell>
+                    <TableCell>{x.tax_amount}</TableCell>
+                    <TableCell>{x.date}</TableCell>
                   </TableRow>
                 ))
 
