@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/CreateAnAccount/DEFAULT_ACTION';
+export const SIGN_UP = 'app/CreateAnAccount/SIGN_UP';

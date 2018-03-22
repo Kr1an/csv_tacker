@@ -64,7 +64,8 @@ const validateTextCases = (state, action) => ({
     .setIn(['data', 'isTextValid'], false),
   [VALIDATE_TEXT_SUCCESS]: () => state
     .setIn(['meta', 'error'], null)
-    .setIn(['data', 'isTextValid'], true),
+    .setIn(['data', 'isTextValid'], true)
+    .setIn(['data', 'uploadedText'], action.payload),
 });
 
 const resetCases = (state) => ({

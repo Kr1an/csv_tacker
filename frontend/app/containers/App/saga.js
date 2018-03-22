@@ -1,23 +1,26 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 
 import { push } from 'react-router-redux';
 
-import {
-  // CHECK_IF_AUTHORIZED,
-} from './constants';
-
-import {
-  // checkIfAuthorizedSuccess,
-  checkIfAuthorizedError,
-} from './actions';
+import request from 'utils/request';
 
 export function* checkIfUserAuthorizedSaga() {
+  const token = localStorage.getItem('token');
+  const url = `${process.env.API_BASE}/api/v1/`;
+
+  if (!token) {
+    yield put(push('/login'));
+  }
+
+  const options = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+
   try {
-    // const user = {};
-    throw new Error();
-    // yield put(checkIfAuthorizedSuccess(user));
+    yield call(request, url, options);
   } catch (e) {
-    yield put(checkIfAuthorizedError());
     yield put(push('/login'));
   }
 }

@@ -31,6 +31,8 @@ import saga from './saga';
 
 import validate from './validate';
 
+import { signUp } from './actions';
+
 const styles = () => ({
   fieldsHolder: {
     marginBottom: 20,
@@ -41,6 +43,9 @@ const CreateAnAccount = ({
   classes,
   goToLogInPage,
   handleSubmit,
+  onSubmit,
+  submitting,
+  valid,
 }) => (
   <CenteredContainer>
     <AppBar position="fixed">
@@ -54,19 +59,19 @@ const CreateAnAccount = ({
       </Toolbar>
     </AppBar>
     <Grid container item xs={10} md={6} lg={4} xl={2} justify="center">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit((val) => onSubmit(val.toJS()))}>
         <Grid className={classes.fieldsHolder} item xs={12}>
           <Field
             name="username"
             component={MdTextField}
             label="Username"
+            required
             margin="normal"
           />
           <Field
             name="email"
             component={MdTextField}
             label="Email"
-            required
             fullWidth
             margin="normal"
           />
@@ -85,8 +90,9 @@ const CreateAnAccount = ({
             <Button
               variant="raised"
               color="primary"
+              type="submit"
               fullWidth
-              onClick={goToLogInPage}
+              disabled={submitting || !valid}
             >sign up</Button>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
@@ -105,6 +111,9 @@ CreateAnAccount.propTypes = {
   classes: PropTypes.object.isRequired,
   goToLogInPage: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+  valid: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -113,6 +122,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   goToLogInPage: () => dispatch(push('/login')),
+  onSubmit: (payload) => dispatch(signUp(payload)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

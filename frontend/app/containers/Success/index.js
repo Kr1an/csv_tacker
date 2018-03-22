@@ -29,11 +29,15 @@ const styles = () => ({
   messageHolder: {
     marginBottom: 30,
   },
+  title: {
+    flex: 1,
+  },
 });
 
 function Success({
   classes,
-  goToLogInPage,
+  goToSubmitPage,
+  onLogOutClick,
 }) {
   return (
     <div className={classes.root}>
@@ -42,9 +46,14 @@ function Success({
           <Typography
             variant="title"
             color="inherit"
+            className={classes.title}
           >
             Success
           </Typography>
+          <Button
+            color="inherit"
+            onClick={onLogOutClick}
+          >LOGOUT</Button>
         </Toolbar>
       </AppBar>
       <Grid item xs={12} className={classes.messageHolder}>
@@ -59,7 +68,7 @@ function Success({
         <Button
           color="primary"
           variant="raised"
-          onClick={goToLogInPage}
+          onClick={goToSubmitPage}
         >Upload One More</Button>
       </Grid>
     </div>
@@ -68,7 +77,8 @@ function Success({
 
 Success.propTypes = {
   classes: PropTypes.object.isRequired,
-  goToLogInPage: PropTypes.func.isRequired,
+  goToSubmitPage: PropTypes.func.isRequired,
+  onLogOutClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -76,7 +86,11 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  goToLogInPage: () => dispatch(push('/login')),
+  goToSubmitPage: () => dispatch(push('/submit')),
+  onLogOutClick: () => {
+    localStorage.removeItem('token');
+    dispatch(push('/login'));
+  },
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

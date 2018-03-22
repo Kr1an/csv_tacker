@@ -1,15 +1,5 @@
-/*
- *
- * CreateAnAccount actions
- *
- */
-
 import {
-  DEFAULT_ACTION,
+  SIGN_UP,
 } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const signUp = (payload) => ({ type: SIGN_UP, payload });

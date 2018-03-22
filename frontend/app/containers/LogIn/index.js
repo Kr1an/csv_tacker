@@ -32,6 +32,10 @@ import saga from './saga';
 // import messages from './messages';
 import validate from './validate';
 
+import {
+  login,
+} from './actions';
+
 const styles = () => ({
   fieldsHolder: {
     marginBottom: 20,
@@ -41,8 +45,10 @@ const styles = () => ({
 const LogIn = ({
   classes,
   goToSignUpPage,
-  goToSubmitPage,
+  onSubmit,
   handleSubmit,
+  submitting,
+  valid,
 }) => (
   <CenteredContainer>
     <AppBar position="fixed">
@@ -57,12 +63,12 @@ const LogIn = ({
     </AppBar>
 
     <Grid container item xs={10} md={6} lg={4} xl={2} justify="center">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit((val) => onSubmit(val.toJS()))}>
         <Grid item className={classes.fieldsHolder} xs={12}>
           <Field
-            name="email"
+            name="username"
             component={MdTextField}
-            label="Email"
+            label="Username"
             margin="normal"
             fullWidth
             required
@@ -82,8 +88,9 @@ const LogIn = ({
             <Button
               variant="raised"
               color="primary"
+              type="submit"
               fullWidth
-              onClick={goToSubmitPage}
+              disabled={submitting || !valid}
             >
               Log in
             </Button>
@@ -106,8 +113,10 @@ const LogIn = ({
 LogIn.propTypes = {
   classes: PropTypes.object,
   goToSignUpPage: PropTypes.func.isRequired,
-  goToSubmitPage: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
+  valid: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -117,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   goToSignUpPage: () => dispatch(push('/register')),
   goToSubmitPage: () => dispatch(push('/submit')),
+  onSubmit: (payload) => dispatch(login(payload)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

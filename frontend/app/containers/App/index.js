@@ -12,13 +12,16 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 
 import CreateAnAccount from 'containers/CreateAnAccount';
 import LogIn from 'containers/LogIn';
 import Success from 'containers/Success';
 import FileSubmitionForm from 'containers/FileSubmitionForm';
+
+import NotificationSystem from 'containers/NotificationSystem';
+
 
 import injectSaga from 'utils/injectSaga';
 
@@ -33,7 +36,9 @@ const App = () => (
       <Route path="/login" component={LogIn} />
       <Route path="/success" component={Success} />
       <Route path="/submit" component={FileSubmitionForm} />
+      <Redirect from="/" to="submit" />
     </Switch>
+    <NotificationSystem />
   </Wrapper>
 );
 

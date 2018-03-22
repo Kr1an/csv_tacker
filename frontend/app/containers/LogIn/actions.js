@@ -1,15 +1,11 @@
-/*
- *
- * LogIn actions
- *
- */
+import makeActionWithPayload from 'utils/makeActionWithPayload';
 
 import {
-  DEFAULT_ACTION,
+  LOGIN,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
 } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const login = makeActionWithPayload(LOGIN);
+export const loginError = makeActionWithPayload(LOGIN_ERROR);
+export const loginSuccess = makeActionWithPayload(LOGIN_SUCCESS);
