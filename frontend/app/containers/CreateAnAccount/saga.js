@@ -7,7 +7,7 @@ import { SIGN_UP } from './constants';
 
 export function* signUpSubmitSaga(action) {
   const user = action.payload;
-  const url = `${process.env.API_BASE}/api/v1/users/`;
+  const url = `${process.env.API_BASE}/api/auth/register`;
 
   const options = {
     method: 'POST',
@@ -19,7 +19,7 @@ export function* signUpSubmitSaga(action) {
 
   try {
     const result = yield call(request, url, options);
-    const token = result.auth_token;
+    const token = result.token;
     localStorage.setItem('token', token);
     yield put(resetNotificationSystem());
     yield put(push('/submit'));

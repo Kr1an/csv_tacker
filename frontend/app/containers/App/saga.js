@@ -6,22 +6,23 @@ import request from 'utils/request';
 
 export function* checkIfUserAuthorizedSaga() {
   const token = localStorage.getItem('token');
-  const url = `${process.env.API_BASE}/api/v1/`;
+  const url = `${process.env.API_BASE}/api/auth/me`;
 
   if (!token) {
-    yield put(push('/login'));
+    yield put(push('/register'));
   }
 
   const options = {
     headers: {
-      Authorization: `Token ${token}`,
+      'x-access-token': token,
     },
   };
 
   try {
     yield call(request, url, options);
   } catch (e) {
-    yield put(push('/login'));
+    console.log(e);
+    yield put(push('/register'));
   }
 }
 

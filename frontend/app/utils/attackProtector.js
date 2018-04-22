@@ -24,6 +24,11 @@ const hasSql = (value) => {
     return true;
   }
 
+  const sqlWhere = new RegExp(/where/i);
+  if (sqlWhere.test(value)) {
+    return true;
+  }
+
   return false;
 };
 

@@ -14,6 +14,7 @@ import {
   FILE_UPLOAD_SUCCESS,
   VALIDATE_TEXT_ERROR,
   VALIDATE_TEXT_SUCCESS,
+  LOAD_ALL_POSTS_SUCCESS,
   RESET,
 } from './constants';
 
@@ -25,6 +26,7 @@ const initialState = fromJS({
   data: {
     uploadedText: null,
     isTextValid: null,
+    allPosts: null,
   },
 });
 
@@ -73,7 +75,13 @@ const resetCases = (state) => ({
     .setIn(['meta', 'error'], null)
     .setIn(['meta', 'loading'], null)
     .setIn(['data', 'uploadedText'], null)
-    .setIn(['data', 'isTextValid'], null),
+    .setIn(['data', 'isTextValid'], null)
+    .setIn(['data', 'allPosts'], null),
+});
+
+const allPosts = (state, action) => ({
+  [LOAD_ALL_POSTS_SUCCESS]: () => state
+    .setIn(['data', 'allPosts'], action.payload),
 });
 
 const fileSubmitionFormReducer = (state = initialState, action) => {
@@ -82,6 +90,7 @@ const fileSubmitionFormReducer = (state = initialState, action) => {
     ...fileUpdateCases(state, action),
     ...validateTextCases(state, action),
     ...resetCases(state, action),
+    ...allPosts(state, action),
     default: () => state,
   };
   return (cases[action.type] || cases.default)();

@@ -9,6 +9,9 @@ import {
   FILE_UPLOAD_SUCCESS,
   VALIDATE_TEXT_ERROR,
   VALIDATE_TEXT_SUCCESS,
+  LOAD_ALL_POSTS,
+  LOAD_ALL_POSTS_ERROR,
+  LOAD_ALL_POSTS_SUCCESS,
   RESET,
 } from './constants';
 
@@ -26,3 +29,6 @@ export const validateTextSuccess = makeActionWithPayload(VALIDATE_TEXT_SUCCESS);
 
 export const reset = makeActionWithPayload(RESET);
 
+export const loadAllPosts = makeActionWithPayload(LOAD_ALL_POSTS);
+export const loadAllPostsError = makeActionWithPayload(LOAD_ALL_POSTS_ERROR);
+export const loadAllPostsSuccess = makeActionWithPayload(LOAD_ALL_POSTS_SUCCESS);

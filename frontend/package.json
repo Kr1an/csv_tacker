@@ -10,6 +10,20 @@
     "npm": ">=3",
     "node": ">=5"
   },
+  "build": {
+    "appId": "test-builder-app",
+    "files": [
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "publish": null
+  },
+  "homepage": "./",
+  "main": "index.js",
   "author": "Max Stoiber",
   "license": "MIT",
   "scripts": {
@@ -42,7 +56,11 @@
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron": "sed -i 's/\\/main/main/g' build/index.html && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "lint-staged": {
     "*.js": "lint:eslint"
@@ -217,6 +235,7 @@
     "compression": "1.6.2",
     "cross-env": "5.0.0",
     "csvjson": "^5.0.0",
+    "electron-packager": "^12.0.0",
     "express": "4.15.3",
     "fontfaceobserver": "2.0.9",
     "history": "4.6.3",
@@ -270,6 +289,8 @@
     "circular-dependency-plugin": "3.0.0",
     "coveralls": "2.13.1",
     "css-loader": "0.28.4",
+    "electron": "^1.8.4",
+    "electron-builder": "^20.8.1",
     "enzyme": "2.8.2",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",

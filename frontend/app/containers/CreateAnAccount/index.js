@@ -62,7 +62,7 @@ const CreateAnAccount = ({
       <form onSubmit={handleSubmit((val) => onSubmit(val.toJS()))}>
         <Grid className={classes.fieldsHolder} item xs={12}>
           <Field
-            name="username"
+            name="name"
             component={MdTextField}
             label="Username"
             required
@@ -82,6 +82,14 @@ const CreateAnAccount = ({
             required
             fullWidth
             type="password"
+            margin="normal"
+          />
+          <Field
+            name="secret"
+            component={MdTextField}
+            label="Enter you application's ID. Could be skipped."
+            fullWidth
+            type="tex"
             margin="normal"
           />
         </Grid>

@@ -77,13 +77,15 @@ const styles = () => ({
 function FileSubmitionForm({
   classes,
   onFileUpload,
-  data: { uploadedText, isTextValid },
+  data: { uploadedText, isTextValid, allPosts },
   meta: { error, loading },
   resetUploadedFile,
   onSendFileClick,
   onLogOutClick,
   showModal,
   setShowModal,
+  showAll,
+  setShowAll,
 }) {
   const activeStep = [
     !uploadedText,
@@ -102,6 +104,14 @@ function FileSubmitionForm({
           >
             Submit Form
           </Typography>
+          {
+            allPosts && allPosts.length ? (
+              <Button
+                color="inherit"
+                onClick={() => setShowAll(true)}
+              >Show All</Button>
+            ) : null
+          }
           <Button
             color="inherit"
             onClick={onLogOutClick}
@@ -230,31 +240,81 @@ function FileSubmitionForm({
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>category</TableCell>
-                <TableCell>name</TableCell>
-                <TableCell>address</TableCell>
-                <TableCell>expense description</TableCell>
-                <TableCell>pre-tax amount</TableCell>
-                <TableCell>tax name</TableCell>
-                <TableCell>tax amount</TableCell>
-                <TableCell>date</TableCell>
+                <TableCell>First Name</TableCell>
+                <TableCell>Second Name</TableCell>
+                <TableCell>Address</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Issue</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
-                IsJsonString(uploadedText) && (JSON.parse(uploadedText) || []).map((x) => (
-                  <TableRow>
-                    <TableCell>{x.category}</TableCell>
-                    <TableCell>{x.name}</TableCell>
+                IsJsonString(uploadedText) && (JSON.parse(uploadedText) || []).map((x, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>{x.firstName}</TableCell>
+                    <TableCell>{x.lastName}</TableCell>
                     <TableCell>{x.address}</TableCell>
-                    <TableCell>{x.expense_description}</TableCell>
-                    <TableCell>{x.pre_tax_amount}</TableCell>
-                    <TableCell>{x.tax_name}</TableCell>
-                    <TableCell>{x.tax_amount}</TableCell>
-                    <TableCell>{x.date}</TableCell>
+                    <TableCell>{x.city}</TableCell>
+                    <TableCell>{x.age}</TableCell>
+                    <TableCell>{x.issue}</TableCell>
                   </TableRow>
                 ))
 
+              }
+            </TableBody>
+          </Table>
+        </div>
+      </Dialog>
+      <Dialog
+        open={showAll}
+        fullScreen
+        onClose={() => setShowAll(false)}
+        aria-labelledby="simple-dialog-title"
+        className={classes.dialog}
+      >
+        <AppBar>
+          <Toolbar className={classes.modalBar} >
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.title}
+            >
+              Display All Date
+            </Typography>
+            <Button
+              color="inherit"
+              onClick={() => setShowAll(false)}
+              aria-label="Close"
+            >
+              Close
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <div>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>First Name</TableCell>
+                <TableCell>Second Name</TableCell>
+                <TableCell>Address</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Issue</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                (allPosts || []).map((x, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>{x.firstName}</TableCell>
+                    <TableCell>{x.lastName}</TableCell>
+                    <TableCell>{x.address}</TableCell>
+                    <TableCell>{x.city}</TableCell>
+                    <TableCell>{x.age}</TableCell>
+                    <TableCell>{x.issue}</TableCell>
+                  </TableRow>
+                ))
               }
             </TableBody>
           </Table>
@@ -273,6 +333,8 @@ FileSubmitionForm.propTypes = {
   onSendFileClick: PropTypes.func.isRequired,
   onLogOutClick: PropTypes.func.isRequired,
   showModal: PropTypes.bool,
+  showAll: PropTypes.bool,
+  setShowAll: PropTypes.func,
   setShowModal: PropTypes.func,
 };
 
@@ -284,7 +346,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   onLogOutClick: () => {
     localStorage.removeItem('token');
-    dispatch(push('/login'));
+    dispatch(reset());
+    dispatch(push('/register'));
   },
   onSendFileClick: (value) => dispatch(fileSubmit(value)),
   resetUploadedFile: () => dispatch(reset()),
@@ -311,6 +374,7 @@ const withReducer = injectReducer({ key: 'fileSubmitionForm', reducer });
 const withSaga = injectSaga({ key: 'fileSubmitionForm', saga });
 const withStyle = withStyles(styles);
 const withState = injectState('showModal', 'setShowModal', false);
+const withShowAllModal = injectState('showAll', 'setShowAll', false);
 
 export default compose(
   withReducer,
@@ -318,4 +382,5 @@ export default compose(
   withConnect,
   withStyle,
   withState,
+  withShowAllModal,
 )(FileSubmitionForm);

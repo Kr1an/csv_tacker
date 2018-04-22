@@ -17,6 +17,10 @@ module.exports = (options) => ({
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   module: {
     rules: [
       {

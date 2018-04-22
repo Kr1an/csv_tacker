@@ -10,3 +10,7 @@ export const VALIDATE_TEXT_SUCCESS = 'app/FileSubmitionForm/VALIDATE_TEXT_SUCCES
 export const VALIDATE_TEXT_ERROR = 'app/FileSubmitionForm/VALIDATE_TEXT_ERROR';
 
 export const RESET = 'app/FileSubmitionForm/RESET';
+
+export const LOAD_ALL_POSTS = 'app/FileSubmitionForm/LOAD_ALL_POSTS';
+export const LOAD_ALL_POSTS_SUCCESS = 'app/FileSubmitionForm/LOAD_ALL_POSTS_SUCCESS';
+export const LOAD_ALL_POSTS_ERROR = 'app/FileSubmitionForm/LOAD_ALL_POSTS_ERROR';
