@@ -22,8 +22,9 @@ function createWindow() {
   console.log(startUrl);
 
   mainWindow.loadURL(startUrl);
+  mainWindow.setMenu(null);
 
-  mainWindow.webContents.openDevTools();
+//  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', () => {
     mainWindow = null;
